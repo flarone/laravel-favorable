@@ -1,0 +1,54 @@
+{
+	"name": "flarone/laravel-favorable",
+	"description": "Laravel favorable package to like, dislike and favorite your models",
+	"license": "MIT",
+	"homepage": "https://flarone.com",
+	"keywords": ["laravel", "eloquent", "likeable", "likable", "like", "dislike", "remember", "follow", "favorite", "favourite"],
+	"authors": [
+		{
+			"name": "Flarone",
+			"email": "info@flarone.com"
+		}
+	],
+	"require": {
+		"php": "^7.3|^8.0",
+		"illuminate/database": ">=8.0",
+		"illuminate/support": ">=8.0"
+	},
+	"require-dev": {
+		"orchestra/testbench": "6.*",
+		"phpunit/phpunit": "9.*",
+		"mockery/mockery": "1.*",
+		"squizlabs/php_codesniffer": "3.*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Flarone\\Favoriteable\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Flarone\\Tests\\Favoriteable\\": "tests/"
+		}
+	},
+	"scripts": {
+        "test": "vendor/bin/phpunit --color=always",
+        "check": [
+            "php-cs-fixer fix --ansi --dry-run --diff .",
+            "phpcs --report-width=200 --report-summary  --report-full src/ tests/ --standard=PSR2 -n",
+            "phpmd src/,tests/ text ./phpmd.xml.dist"
+        ],
+        "fix": [
+            "php-cs-fixer fix --ansi ."
+        ]
+    },
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Flarone\\Favoriteable\\FavoriteableServiceProvider"
+			]
+		}
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true
+}
