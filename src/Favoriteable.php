@@ -38,7 +38,7 @@ trait Favoriteable
     public function favorite($userId=null)
     {
         if (is_null($userId)) {
-            $userId = $this->loggedInUserId();
+            $userId = Auth()->id();
         }
         
         if ($userId) {
@@ -65,7 +65,7 @@ trait Favoriteable
     public function defavorite($userId=null)
     {
         if (is_null($userId)) {
-            $userId = $this->loggedInUserId();
+            $userId = Auth()->id();
         }
         
         if ($userId) {
@@ -92,7 +92,7 @@ trait Favoriteable
     public function favorited($userId=null)
     {
         if (is_null($userId)) {
-            $userId = $this->loggedInUserId();
+            $userId = Auth()->id();
         }
         
         return (bool) $this->favorites()
@@ -194,20 +194,11 @@ trait Favoriteable
     public function scopeWhereFavoritedBy($query, $userId=null)
     {
         if (is_null($userId)) {
-            $userId = $this->loggedInUserId();
+            $userId = Auth()->id();
         }
 
         return $query->whereHas('favorites', function ($q) use ($userId) {
             $q->where('user_id', '=', $userId);
         });
-    }
-
-    /**
-     * Fetch the primary ID of the currently logged in user
-     * @return mixed
-     */
-    private function loggedInUserId()
-    {
-        return Auth()->id();
     }
 }
