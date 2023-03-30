@@ -132,7 +132,7 @@ trait Favoriteable
     {
         $favoriteClass = config('favorable.favorite_model');
 
-        return $this->morphMany($favoriteClass::class, 'favoriteable');
+        return $this->morphMany($favoriteClass, 'favoriteable');
     }
 
     /**
