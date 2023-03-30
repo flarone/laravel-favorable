@@ -41,7 +41,7 @@ class FavoriteCounter extends Model
 
         $favoriteClass = config('favorable.favorite_model');
 
-        $builder = ${$favoriteClass}::query()
+        $builder = $favoriteClass::query()
             ->select(\DB::raw('count(*) as count, favoriteable_type, favoriteable_id'))
             ->where('favoriteable_type', $modelClass)
             ->groupBy('favoriteable_id');
