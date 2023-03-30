@@ -2,17 +2,23 @@
 
 namespace Flarone\Favoriteable;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @mixin \Eloquent
  * @property Favoriteable favoriteable
  */
-class FavoriteCounter extends Eloquent
+class FavoriteCounter extends Model
 {
     protected $table = 'favoriteable_favorite_counters';
+
     public $timestamps = false;
-    protected $fillable = ['favoriteable_id', 'favoriteable_type', 'count'];
+
+    protected $fillable = [
+        'favoriteable_id',
+        'favoriteable_type',
+        'count'
+    ];
 
     /**
      * @access private
@@ -32,8 +38,10 @@ class FavoriteCounter extends Eloquent
         if (empty($modelClass)) {
             throw new \Exception('$modelClass cannot be empty/null. Maybe set the $morphClass variable on your model.');
         }
-        
-        $builder = Favorite::query()
+
+        $favoriteClass = config('favorable.favorite_model');
+
+        $builder = ${$favoriteClass}::query()
             ->select(\DB::raw('count(*) as count, favoriteable_type, favoriteable_id'))
             ->where('favoriteable_type', $modelClass)
             ->groupBy('favoriteable_id');

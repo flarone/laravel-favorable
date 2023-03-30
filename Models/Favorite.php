@@ -1,8 +1,9 @@
 <?php
 
-namespace Flarone\Favoriteable;
+namespace Flarone\Favoriteable\Models;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Flarone\Favoriteable\Favoriteable;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @mixin \Eloquent
@@ -11,11 +12,17 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string favoriteable_id
  * @property string favoriteable_type
  */
-class Favorite extends Eloquent
+class Favorite extends Model
 {
     protected $table = 'favoriteable_favorites';
+
     public $timestamps = true;
-    protected $fillable = ['favoriteable_id', 'favoriteable_type', 'user_id'];
+
+    protected $fillable = [
+        'favoriteable_id',
+        'favoriteable_type',
+        'user_id'
+    ];
 
     /**
      * @access private

@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
  */
 trait Favoriteable
 {
+
     public static function bootFavoriteable()
     {
         if (static::removeFavoritesOnDelete()) {
@@ -49,8 +50,10 @@ trait Favoriteable
             if ($favorite) {
                 return;
             }
-    
-            $favorite = new Favorite();
+
+            $favoriteClass = config('favorable.favorite_model');
+
+            $favorite = new ${$favoriteClass}();
             $favorite->user_id = $userId;
             $this->favorites()->save($favorite);
         }
@@ -127,7 +130,9 @@ trait Favoriteable
      */
     public function favorites()
     {
-        return $this->morphMany(Favorite::class, 'favoriteable');
+        $favoriteClass = config('favorable.favorite_model');
+
+        return $this->morphMany(${$favoriteClass}::class, 'favoriteable');
     }
 
     /**

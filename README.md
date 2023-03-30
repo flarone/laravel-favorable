@@ -44,6 +44,19 @@ Model::whereFavoritedBy($myUserId) // find only models where user favorited them
 	->get();
 ```
 
+#### Extending the favorite model
+You can extend the favorite model if needed. To do this create your own Favorite model and let it extend the following favorite base model:
+```php
+\Flarone\Favoriteable\Models\Favorite::class
+```
+
+Next, publish the configuration file with the following command:
+```php
+php artisan vendor:publish --provider="Flarone\Favoriteable\FavoriteableServiceProvider" --tag="config"
+```
+The favorable config file will be copied into your config directory. In this file adjust the `favorite_model` to your own created model.
+
+
 #### Credits
 
  - Flarone - https://flarone.com
